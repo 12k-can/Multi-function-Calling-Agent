@@ -1,8 +1,11 @@
 #!/bin/bash
-# 🚀 多功能工具助手 - 一键启动脚本
-# 双击此文件即可启动 (macOS)
+# ============================================
+# 🚀 多功能工具助手 - 一键启动脚本 (macOS)
+# 双击即可运行，放在任何目录都支持
+# ============================================
 
-cd "$(dirname "$0")"
+# 切换到脚本所在目录（核心：支持任意位置运行）
+cd "$(dirname "$0")" || { echo "❌ 无法进入项目目录"; exit 1; }
 PROJECT_DIR="$(pwd)"
 VENV_PYTHON="$PROJECT_DIR/venv/bin/python3"
 
@@ -11,7 +14,7 @@ echo "  🚀 多功能工具助手 - AI Agent"
 echo "================================================"
 echo ""
 
-# 检查 venv 是否存在
+# 检查 venv 是否存在，不存在则自动创建
 if [ ! -f "$VENV_PYTHON" ]; then
     echo "📦 首次运行，正在创建虚拟环境..."
     python3 -m venv "$PROJECT_DIR/venv"
@@ -28,13 +31,18 @@ if ! "$VENV_PYTHON" -c "import streamlit" 2>/dev/null; then
     echo ""
 fi
 
-echo "🌐 服务启动中，请在浏览器访问："
-echo "   http://localhost:8501"
+echo "🌐 正在启动服务..."
+echo "   浏览器将自动打开"
+echo "   如未自动打开，请访问: http://localhost:8501"
 echo ""
 echo "⏎ 按回车键停止服务"
 echo "================================================"
 echo ""
 
+# 延迟打开浏览器，等 Streamlit 启动
+(sleep 2 && open "http://localhost:8501") &
+
+# 启动 Streamlit
 "$VENV_PYTHON" -m streamlit run "$PROJECT_DIR/app.py" --server.port 8501
 
 echo ""
