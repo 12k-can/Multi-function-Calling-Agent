@@ -1,0 +1,36 @@
+# Python
+__pycache__/
+*.py[cod]
+*.so
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Virtual environment
+venv/
+.venv/
+env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Streamlit
+*.pyc
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Generated files (optional, can keep for demo)
+# report_*.md
+# data_*.csv
+
+# Temporary database
+*.db
+
+# Environment
+.env
